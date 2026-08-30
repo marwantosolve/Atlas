@@ -1,0 +1,203 @@
+{
+  "schema_version": "1.0",
+  "export_time": "2026-04-17T00:34:20.113402",
+  "session_count": 1,
+  "span_count": 5,
+  "metadata": {
+    "framework": "langgraph",
+    "execution_id": "atlas_example_001",
+    "timestamp": "2026-04-17T00:34:02.000000"
+  },
+  "agents_registry": {
+    "framework_name": "langgraph",
+    "total_agents": 2,
+    "agents": [
+      {
+        "agent_name": "orchestrator_agent",
+        "node_name": "orchestrator",
+        "description": "Plans the work and delegates to the researcher.",
+        "tools_bound": [],
+        "can_communicate_with": ["researcher_agent"],
+        "participated": true
+      },
+      {
+        "agent_name": "researcher_agent",
+        "node_name": "researcher",
+        "description": "Searches the web and gathers facts.",
+        "tools_bound": ["search_web"],
+        "can_communicate_with": [],
+        "participated": true
+      }
+    ]
+  },
+  "tools_registry": {
+    "framework_name": "langgraph",
+    "total_tools": 1,
+    "tools": [
+      {
+        "tool_name": "search_web",
+        "description": "Search the web for research material on a given topic.",
+        "bound_to_agents": ["researcher_agent"],
+        "invoked": true,
+        "invocation_count": 1
+      }
+    ]
+  },
+  "communication_graph": {
+    "entry_point": "orchestrator_agent",
+    "terminal_agents": ["researcher_agent"],
+    "total_edges": 1,
+    "edges": [
+      {
+        "source": "orchestrator_agent",
+        "target": "researcher_agent",
+        "condition": "Always",
+        "edge_type": "sequential",
+        "traversed": true
+      }
+    ],
+    "adjacency_list": {
+      "orchestrator_agent": ["researcher_agent"],
+      "researcher_agent": []
+    }
+  },
+  "sessions": [
+    {
+      "session_id": "session_example_001",
+      "trace_id": "b7f1c2d3e4a5b6c7",
+      "start_time": "2026-04-17T00:34:02.000000",
+      "end_time": "2026-04-17T00:34:05.000000",
+      "duration_ms": 3000.0,
+      "input_query": "Summarize how rApps integrate with the O-RAN Non-RT RIC.",
+      "final_output": "rApps attach to the Non-RT RIC over the A1 and O1 interfaces...",
+      "route_taken": "orchestrator -> researcher",
+      "metadata": {},
+      "spans": [
+        {
+          "name": "search_web",
+          "trace_id": "b7f1c2d3e4a5b6c7",
+          "span_id": "5e6f708192a3b4c5",
+          "parent_span_id": "4d5e6f708192a3b4",
+          "start_time": "2026-04-17T00:34:03.300000",
+          "end_time": "2026-04-17T00:34:04.400000",
+          "duration_ms": 1100.0,
+          "status": "OK",
+          "status_message": null,
+          "kind": "INTERNAL",
+          "service_name": "atlas-example",
+          "openinference": {
+            "input_value": "{\"query\": \"rApps Non-RT RIC A1 O1 integration\"}",
+            "input_mime_type": "application/json",
+            "output_value": "{\"content\": \"rApps use A1 for policy and O1 for management.\"}",
+            "output_mime_type": "application/json",
+            "tool_name": "search_web",
+            "tool_description": "Search the web for research material on a given topic."
+          },
+          "attributes": {
+            "openinference.span.kind": "TOOL",
+            "session.id": "session_example_001"
+          },
+          "events": [],
+          "eval_metadata": {}
+        },
+        {
+          "name": "researcher",
+          "trace_id": "b7f1c2d3e4a5b6c7",
+          "span_id": "4d5e6f708192a3b4",
+          "parent_span_id": "1a2b3c4d5e6f7081",
+          "start_time": "2026-04-17T00:34:03.250000",
+          "end_time": "2026-04-17T00:34:04.900000",
+          "duration_ms": 1650.0,
+          "status": "OK",
+          "status_message": null,
+          "kind": "INTERNAL",
+          "service_name": "atlas-example",
+          "openinference": {
+            "input_value": "Research how rApps integrate with the Non-RT RIC.",
+            "output_value": "rApps attach over A1 and O1."
+          },
+          "attributes": {
+            "openinference.span.kind": "CHAIN",
+            "session.id": "session_example_001"
+          },
+          "events": [],
+          "eval_metadata": {}
+        },
+        {
+          "name": "ChatGoogleGenerativeAI",
+          "trace_id": "b7f1c2d3e4a5b6c7",
+          "span_id": "3c4d5e6f708192a3",
+          "parent_span_id": "2b3c4d5e6f708192",
+          "start_time": "2026-04-17T00:34:02.000500",
+          "end_time": "2026-04-17T00:34:03.150000",
+          "duration_ms": 1149.5,
+          "status": "OK",
+          "status_message": null,
+          "kind": "INTERNAL",
+          "service_name": "atlas-example",
+          "openinference": {
+            "input_value": "Plan the research for: rApps and the Non-RT RIC.",
+            "output_value": "Delegate one search to the researcher.",
+            "llm_model_name": "gemma-4-26b-a4b-it",
+            "llm_token_count_prompt": 120,
+            "llm_token_count_completion": 60,
+            "llm_token_count_total": 180
+          },
+          "attributes": {
+            "openinference.span.kind": "LLM",
+            "llm.provider": "google",
+            "session.id": "session_example_001"
+          },
+          "events": [],
+          "eval_metadata": {}
+        },
+        {
+          "name": "orchestrator",
+          "trace_id": "b7f1c2d3e4a5b6c7",
+          "span_id": "2b3c4d5e6f708192",
+          "parent_span_id": "1a2b3c4d5e6f7081",
+          "start_time": "2026-04-17T00:34:02.000100",
+          "end_time": "2026-04-17T00:34:03.200000",
+          "duration_ms": 1199.9,
+          "status": "OK",
+          "status_message": null,
+          "kind": "INTERNAL",
+          "service_name": "atlas-example",
+          "openinference": {
+            "input_value": "Summarize how rApps integrate with the O-RAN Non-RT RIC.",
+            "output_value": "Delegate one search to the researcher."
+          },
+          "attributes": {
+            "openinference.span.kind": "CHAIN",
+            "session.id": "session_example_001"
+          },
+          "events": [],
+          "eval_metadata": {}
+        },
+        {
+          "name": "research_query",
+          "trace_id": "b7f1c2d3e4a5b6c7",
+          "span_id": "1a2b3c4d5e6f7081",
+          "parent_span_id": null,
+          "start_time": "2026-04-17T00:34:02.000000",
+          "end_time": "2026-04-17T00:34:05.000000",
+          "duration_ms": 3000.0,
+          "status": "OK",
+          "status_message": null,
+          "kind": "INTERNAL",
+          "service_name": "atlas-example",
+          "openinference": {
+            "input_value": "Summarize how rApps integrate with the O-RAN Non-RT RIC.",
+            "output_value": "rApps attach to the Non-RT RIC over the A1 and O1 interfaces..."
+          },
+          "attributes": {
+            "openinference.span.kind": "CHAIN",
+            "session.id": "session_example_001"
+          },
+          "events": [],
+          "eval_metadata": {}
+        }
+      ]
+    }
+  ]
+}
