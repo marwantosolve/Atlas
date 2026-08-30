@@ -1,0 +1,46 @@
+[project]
+name = "atlas"
+version = "0.1.0"
+description = "Execution intelligence for agentic AI systems: span-level graph reconstruction, deterministic failure propagation, and root-cause attribution."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+# Phase 0 needs validation only. NetworkX arrived with Phase 2 (graph
+# reconstruction); FastAPI arrives with the API phase, and the UI deps last.
+# See docs/decisions.md ADR-005.
+dependencies = [
+    "pydantic>=2.0",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    # starlette's TestClient (used by the API tests) needs an HTTP client
+    "httpx2",
+]
+api = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+llm = [
+    "anthropic>=0.40",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+atlas = "atlas.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/atlas"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.uv]
+package = true

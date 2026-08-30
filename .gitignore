@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.env
+.DS_Store
+
+# private planning inputs, never published
+prompt.txt
+ATLAS.pdf
+
+# local run stores created by `atlas analyze --store` / `atlas serve`
+runs/
+
+# agent scratch
+.claude/
