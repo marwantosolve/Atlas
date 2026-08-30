@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas — execution intelligence</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Atlas</h1>
+    <span class="sub">execution intelligence for agentic AI systems</span>
+    <button id="refresh" title="Reload the run list">⟳</button>
+  </header>
+
+  <main>
+    <!-- ── run list ─────────────────────────────────────────────── -->
+    <section id="run-list-view">
+      <h2>Runs</h2>
+      <div class="empty-post" id="post-hint" hidden>
+        No runs yet. Load one from the command line:
+        <pre>atlas serve --seed examples/traces/refund_run.json</pre>
+      </div>
+      <table id="run-table">
+        <thead>
+          <tr>
+            <th>Run</th><th>Status</th><th>Spans</th><th>Failures</th>
+            <th>Duration</th><th>Retry waste</th><th>Query</th>
+          </tr>
+        </thead>
+        <tbody id="run-rows"></tbody>
+      </table>
+    </section>
+
+    <!-- ── run detail ───────────────────────────────────────────── -->
+    <section id="run-detail-view" hidden>
+      <nav><a href="#" id="back-link">← all runs</a></nav>
+      <h2 id="run-title"></h2>
+      <div id="run-facts" class="facts"></div>
+
+      <div class="columns">
+        <div class="col">
+          <h3>Execution graph</h3>
+          <p class="hint">
+            call edges are solid, handoffs dashed, retries dotted.
+            Failed nodes are red, contaminated amber, at-risk hollow.
+          </p>
+          <div id="graph" class="graph"></div>
+          <p class="hint" id="graph-coverage"></p>
+        </div>
+
+        <div class="col">
+          <h3>Root causes (strongest first)</h3>
+          <div id="root-causes"></div>
+
+          <h3>Failures &amp; blast radius</h3>
+          <div id="failures"></div>
+
+          <h3>Retry waste</h3>
+          <div id="retries"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
